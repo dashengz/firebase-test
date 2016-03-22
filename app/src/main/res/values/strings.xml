@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">FirebaseTest</string>
+    <string name="firebase"></string>
+
+    <string name="email_hint">E-mail</string>
+    <string name="password_hint">Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="log_in">Log In</string>
+
+    <string name="title">Your Profile</string>
+    <string name="name_hint">Name</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="secret">Secret</string>
+    <string name="age_hint">Age</string>
+    <string name="description_hint">Description</string>
+
+    <string name="action_save">Save</string>
+    <string name="action_logout">Log Out</string>
+</resources>
