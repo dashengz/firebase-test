@@ -6,14 +6,14 @@ package com.dashengz.firebasetest;
  */
 public class User {
     private String name;
-    private int gender;
-    private String age;
+    private int gender; // 0 Male, 1 Female, 2 Secret
+    private int age;
     private String description;
 
     public User() {
     }
 
-    public User(String name, int gender, String age, String description) {
+    public User(String name, int gender, int age, String description) {
         this.name = name;
         this.gender = gender;
         this.age = age;
@@ -28,7 +28,7 @@ public class User {
         return gender;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 

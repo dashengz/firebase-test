@@ -46,11 +46,10 @@ public class DetailActivity extends AppCompatActivity {
                 if (snapshot.getValue(User.class) != null) {
                     User user = snapshot.getValue(User.class);
                     name.setText(user.getName());
-                    age.setText(user.getAge());
+                    age.setText(String.valueOf(user.getAge()));
                     description.setText(user.getDescription());
-                    ((RadioButton) findViewById(user.getGender())).setChecked(true);
+                    ((RadioButton) findViewById(translateGender(user.getGender()))).setChecked(true);
                 }
-
             }
 
             @Override
@@ -72,20 +71,18 @@ public class DetailActivity extends AppCompatActivity {
 
         if (id == R.id.action_save) {
             // save profile
-            if (name.getText().toString().length() != 0 &&
-                    gender.getCheckedRadioButtonId() != -1 &&
-                    age.getText().toString().length() != 0 &&
-                    description.getText().toString().length() != 0) {
-                User user = new User(
-                        name.getText().toString(),
-                        gender.getCheckedRadioButtonId(),
-                        age.getText().toString(),
-                        description.getText().toString());
+            String n = name.getText().toString();
+            String a = age.getText().toString();
+            int g = gender.getCheckedRadioButtonId();
+            String d = description.getText().toString();
+
+            if (n.length() != 0 && g != -1 && a.length() != 0 && d.length() != 0) {
+                User user = new User(n, translateGender(g), Integer.valueOf(a), d);
                 userRef.setValue(user);
                 Toast.makeText(DetailActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(DetailActivity.this, "Please make sure you've entered all info!", Toast.LENGTH_SHORT).show();
-            }
+            } else
+                Toast.makeText(DetailActivity.this,
+                        "Please make sure you've entered all info!", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.action_logout) {
             // logout
@@ -94,5 +91,31 @@ public class DetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Translate resource id to gender type (or the other way around)
+     * 0 Male, 1 Female, 2 Secret
+     *
+     * @param target Clicked RadioButton resource Id (or the gender int)
+     * @return gender type int (or resId)
+     */
+    private int translateGender(int target) {
+        switch (target) {
+            case R.id.male:
+                return 0;
+            case R.id.female:
+                return 1;
+            case R.id.secret:
+                return 2;
+            case 0:
+                return R.id.male;
+            case 1:
+                return R.id.female;
+            case 2:
+                return R.id.secret;
+            default:
+                throw new UnsupportedOperationException("Unsupported resId or gender type!");
+        }
     }
 }
