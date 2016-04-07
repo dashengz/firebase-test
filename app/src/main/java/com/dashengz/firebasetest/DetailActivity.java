@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,6 +24,14 @@ public class DetailActivity extends AppCompatActivity {
     EditText age;
     EditText description;
 
+    CheckBox partTime;
+    CheckBox fullTime;
+    CheckBox internship;
+
+//    boolean partTime = false;
+//    boolean fullTime = false;
+//    boolean internship = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +41,9 @@ public class DetailActivity extends AppCompatActivity {
         age = (EditText) findViewById(R.id.age);
         description = (EditText) findViewById(R.id.description);
         gender = (RadioGroup) findViewById(R.id.gender);
+        partTime = (CheckBox) findViewById(R.id.partTime);
+        fullTime = (CheckBox) findViewById(R.id.fullTime);
+        internship = (CheckBox) findViewById(R.id.internship);
 
         Firebase myFirebaseRef = new Firebase(getResources().getString(R.string.firebase));
 
@@ -49,6 +61,9 @@ public class DetailActivity extends AppCompatActivity {
                     age.setText(String.valueOf(user.getAge()));
                     description.setText(user.getDescription());
                     ((RadioButton) findViewById(translateGender(user.getGender()))).setChecked(true);
+                    partTime.setChecked(user.isPartTime());
+                    fullTime.setChecked(user.isFullTime());
+                    internship.setChecked(user.isInternship());
                 }
             }
 
@@ -75,9 +90,12 @@ public class DetailActivity extends AppCompatActivity {
             String a = age.getText().toString();
             int g = gender.getCheckedRadioButtonId();
             String d = description.getText().toString();
+            boolean p = partTime.isChecked();
+            boolean f = fullTime.isChecked();
+            boolean i = internship.isChecked();
 
             if (n.length() != 0 && g != -1 && a.length() != 0 && d.length() != 0) {
-                User user = new User(n, translateGender(g), Integer.valueOf(a), d);
+                User user = new User(n, translateGender(g), Integer.valueOf(a), d, p, f, i);
                 userRef.setValue(user);
                 Toast.makeText(DetailActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
             } else

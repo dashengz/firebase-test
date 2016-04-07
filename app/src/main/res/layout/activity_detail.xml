@@ -73,4 +73,30 @@
         android:ems="10"
         android:hint="@string/description_hint"
         android:inputType="textMultiLine" />
+
+    <CheckBox
+        android:id="@+id/partTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description"
+        android:layout_centerHorizontal="true"
+        android:text="@string/part_time" />
+
+    <CheckBox
+        android:id="@+id/fullTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/partTime"
+        android:layout_centerHorizontal="true"
+        android:text="@string/full_time" />
+
+
+    <CheckBox
+        android:id="@+id/internship"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fullTime"
+        android:layout_centerHorizontal="true"
+        android:text="@string/internship" />
+
 </RelativeLayout>
